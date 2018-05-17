@@ -8,7 +8,7 @@ function judge {
     }
     else {
         Write-Output "失败 $Name"
-        Write-Output "    " "搞不定就来github提issue" "https://github.com/zsnmwy/max-translation-update-script"
+        Write-Output "    " "搞不定就来github提issue" "https://github.com/zsnmwy/steam-community-download-script"
         Pause
         exit
     }
