@@ -35,7 +35,7 @@ Write-Output $api_url
 #$ErrorActionPreference = "Continue"
 #http://steamworkshopdownloader.com/api/workshop/1383841968
 try {
-    $result = Invoke-WebRequest $api_url
+    $result = Invoke-WebRequest $api_url -UseBasicParsing
 }
 catch {
     $result = $_.Exception.Response.GetResponseStream()
@@ -49,18 +49,19 @@ catch {
     Pause
     exit
 }
-$data = Invoke-WebRequest $api_url
+$data = Invoke-WebRequest $api_url -UseBasicParsing
 judge -Name "请求Workshop API"
 $decode = ConvertFrom-Json $data.content
 $file_url = $decode.file_url
 judge -Name "解析file—url"
 Write-Output $file_url
-$headRequest = Invoke-WebRequest $file_url -Method Head
+$headRequest = Invoke-WebRequest $file_url -Method Head -UseBasicParsing
 judge -Name "获取文件头"
 $file_name = $headRequest.Headers['Content-Disposition'].Split("';", [System.StringSplitOptions]::RemoveEmptyEntries) | Select-Object -Last 1
 $date = Get-Date -Format MMddHHmm
 $file_name = "$date $file_name"
-Invoke-WebRequest $file_url -OutFile "$pwd\$file_name"
+Write-Output "文件名为 $file_name"
+Invoke-WebRequest $file_url -OutFile "$pwd\$file_name" -UseBasicParsing
 judge -Name "下载文件"
 
 Pause
