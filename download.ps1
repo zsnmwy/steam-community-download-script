@@ -23,6 +23,7 @@ if ($?) {
 }
 else {
     Write-Output "请输入一个数字"
+    Pause
     exit
 }
 
@@ -45,6 +46,7 @@ catch {
     Write-Output "    " "    " "    "
     $responseBody | ConvertFrom-Json | Select-Object -ExpandProperty message
     Write-Output "    " "    " "    "
+    Pause
     exit
 }
 $data = Invoke-WebRequest $api_url
@@ -60,3 +62,5 @@ $date = Get-Date -Format MMddHHmm
 $file_name = "$date $file_name"
 Invoke-WebRequest $file_url -OutFile "$pwd\$file_name"
 judge -Name "下载文件"
+
+Pause
