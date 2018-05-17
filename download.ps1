@@ -54,7 +54,11 @@ judge -Name "请求Workshop API"
 $decode = ConvertFrom-Json $data.content
 $file_url = $decode.file_url
 judge -Name "解析file—url"
-Write-Output $file_url
+Write-Output "文件的下载地址为  $file_url"
+Write-Output "五秒后自动打开浏览器下载"
+Start-Sleep -Seconds 5
+Start-Process $file_url
+<#
 $headRequest = Invoke-WebRequest $file_url -Method Head -UseBasicParsing
 judge -Name "获取文件头"
 $file_name = $headRequest.Headers['Content-Disposition'].Split("';", [System.StringSplitOptions]::RemoveEmptyEntries) | Select-Object -Last 1
@@ -63,5 +67,15 @@ $file_name = "$date $file_name"
 Write-Output "文件名为 $file_name"
 Invoke-WebRequest $file_url -OutFile "$pwd\$file_name" -UseBasicParsing
 judge -Name "下载文件"
-
+Write-Output "       " "        " "         "
+Write-Output "文件的下载地址为  $file_url"
+Write-Output "       " "        " "         "
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+Write-Output "如果下好的文件名奇奇怪怪，请复制上面的文件下载地址到浏览器上面下载"
+#>
+Write-Output "自动打开浏览器进行下载"
 Pause
